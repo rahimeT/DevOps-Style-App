@@ -1,49 +1,11 @@
-
-pipeline {
-    agent any
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Projeyi Git'ten al
-                checkout scm
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                // Node.js bağımlılıklarını yükle
-                sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Node.js uygulamasını derle (örneğin, webpack kullanarak)
-                sh 'npm run build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Birim ve entegrasyon testlerini çalıştır
-                sh 'npm test'
-            }
-        }
-
-
-    
-
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
-
-    post {
-        success {
-            // Başarı durumunda yapılacaklar
-            echo 'Uygulama başarıyla dağıtıldı!'
-        }
-        failure {
-            // Başarısızlık durumunda yapılacaklar
-            echo 'Uygulama dağıtımı başarısız oldu!'
-        }
-    }
+  }
 }
