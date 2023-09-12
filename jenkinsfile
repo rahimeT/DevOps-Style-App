@@ -3,7 +3,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/rahimeT/DevOps-Style-App.git', branch 'main'
+                script {
+                    // Depo URL'sini ve hedef dalı burada belirleyin
+                    def repoUrl = 'https://github.com/rahimeT/DevOps-Style-App.git'
+                    def targetBranch = 'main' // veya projenizin ana dalını kullanın
+
+                    // Depoyu belirli bir daldan alın
+                    checkout([$class: 'GitSCM', branches: [[name: targetBranch]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'your-nodejs-repo']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
+                }
             }
         }
         stage('Install Dependencies') {
@@ -25,8 +32,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQube Scanner for Jenkins'
-                    withSonarQubeEnv('sonarqube-9.9') {
+                    def scannerHome = tool 'SonarScanner 5.2'
+                    withSonarQubeEnv('sonarqube-8.9') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
