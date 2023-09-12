@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/rahimeT/DevOps-Style-App.git'
+                git 'https://github.com/rahimeT/DevOps-Style-App.git', branch 'main'
             }
         }
         stage('Install Dependencies') {
