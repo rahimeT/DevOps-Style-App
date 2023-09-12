@@ -1,11 +1,36 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/rahimeT/DevOps-Style-App.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Build and Deploy') {
+            steps {
+                sh 'npm build' // Eğer projeniz bir build işlemi gerektiriyorsa
+                // Burada deploy işlemini ekleyebilirsiniz, örneğin bir FTP yüklemesi veya Docker imajı oluşturma
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube Scanner for Jenkins'
+                    withSonarQubeEnv('sonarqube-9.9') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
     }
-  }
 }
