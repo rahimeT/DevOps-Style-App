@@ -17,8 +17,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 // get the client
 const mysql = require('mysql2');
 
