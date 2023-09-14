@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // GitHub'dan proje kodunu al
                 checkout scm
             }
         }
