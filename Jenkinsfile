@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def scannerHome = tool 'SonarScanner'; // Jenkins içinde yapılandırılmış SonarScanner aracı
-                    withSonarQubeEnv('SonarScanner) {
+                    'withSonarQubeEnv('SonarScanner)' {
                         sh """
                         ${scannerHome}/bin/sonar-scanner \
                         -Dsonar.projectKey=rahimeturkmen \
