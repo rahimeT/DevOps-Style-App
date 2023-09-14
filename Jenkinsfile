@@ -12,6 +12,7 @@ pipeline {
                 withSonarQubeEnv('http://35.226.77.45:9000/') {
                     withSonarQubeEnv() {
                       sh "${scannerHome}/bin/sonar-scanner"
+                      echo "yazdırdıı"
     }
                 }
             }
