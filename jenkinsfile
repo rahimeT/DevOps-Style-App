@@ -1,29 +1,20 @@
 pipeline {
-    agent any
+    agent any // Jenkins ajanını kullan (boşta beklemesine gerek yok)
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    // Depo URL'sini ve hedef dalı burada belirleyin
-                    def repoUrl = 'https://github.com/rahimeT/DevOps-Style-App.git'
-                    def targetBranch = 'main' // veya projenizin ana dalını kullanın
-
-                    // Depoyu belirli bir daldan alın
-                    checkout([$class: 'GitSCM', branches: [[name: targetBranch]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'your-nodejs-repo']], submoduleCfg: [], userRemoteConfigs: [[url: repoUrl]]])
+                // GitHub'dan proje kodunu al
+                checkout scm
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                // SonarQube analizini yapmak için SonarScanner'ı kullan
+                withSonarQubeEnv('sonarqube') {
+                    sh 'npm install' // Projede kullanılan bağımlılıkları yükle
+                    sh 'npm run sonarqube' // SonarQube analiz komutunu projenizin package.json dosyasına eklemiş olmalısınız
                 }
             }
         }
-        
-        node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
-    withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-  }
-}
     }
 }
