@@ -13,7 +13,7 @@ pipeline {
         stage('SonarQube Analysis') {
             environment {
                 // SonarQube sunucu bilgilerinizi belirtin
-                SONARQUBE_URL = 'http://35.226.77.45:9000/'
+                SONARQUBE_URL = 'http://35.226.77.45:9000'
                 SONARQUBE_TOKEN = credentials('sonar') // Jenkins credentials ile token'i gizli bir şekilde alabilirsiniz
             }
             steps {
