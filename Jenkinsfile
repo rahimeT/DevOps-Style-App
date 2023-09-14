@@ -9,13 +9,6 @@ pipeline {
             }
         }
         
-        stage('Build and Test') {
-            steps {
-                // Node.js projenizin kurulumunu yapın
-                // Gerekli bağımlılıkları yükleyin (örneğin, npm install)
-                // Projenizi derleyin veya test edin (örneğin, npm run build veya npm test)
-            }
-        }
         
         stage('SonarQube Analysis') {
             environment {
