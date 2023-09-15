@@ -3,10 +3,9 @@ pipeline {
     
     stages {
         stage('SCM Checkout') {
-            steps {
                 // SCM'den kodu çek
                 checkout scm
-            }
+            
         }
     stage('install'){
         sh 'npm install' // Dependency Installation stage
