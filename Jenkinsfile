@@ -3,21 +3,34 @@ pipeline {
     
     stages {
         stage('SCM Checkout') {
+            steps{
+
+                step('checkout'){
+                        checkout scm
+                }
+            }
                 // SCM'den kodu çek
-                checkout scm
+                
             
         }
     stage('install'){
-        sh 'npm install' // Dependency Installation stage
+        steps{
+
+                step('checkout'){
+                    sh 'npm install' // Dependency Installation stage
+                }
+            }
+        
     }
     stage('Scan') {
-        snykSecurity organisation: 'rahimeT', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'synk-api', targetFile: 'package.json'
+        steps{
+
+                step('checkout'){
+                    snykSecurity organisation: 'rahimeT', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'synk-api', targetFile: 'package.json'
+                }
+            }
+        
     }
-    stage('Build') {
-        echo "Build"
-    }
-    stage('Results') {
-        echo "Test Result"
-    }
+  
 }
 }
