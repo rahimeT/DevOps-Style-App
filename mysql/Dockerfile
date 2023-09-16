@@ -9,6 +9,5 @@ ENV MYSQL_DATABASE=test
 ENV MYSQL_USER=root
 ENV MYSQL_PASSWORD=Admin123!
 
-# Docker imaj çalıştığında MySQL'e bağlanıp verileri içe aktarmak için bir SQL dosyası eklemek isterseniz,
-# aşağıdaki satırı kullanabilirsiniz:
+
 COPY ./init.sql /docker-entrypoint-initdb.d/
