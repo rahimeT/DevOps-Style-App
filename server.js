@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 // get the client
-const mysql = require('mysql2');
+const mysql = require
 
 // create the connection to database
 const connection = mysql.createConnection({
