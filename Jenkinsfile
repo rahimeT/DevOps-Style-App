@@ -28,7 +28,7 @@ pipeline {
         
         stage('Scan') {
             steps {
-                snykSecurity organization: 'rahimeT', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'snyk-api', targetFile: 'package.json'
+                snykSecurity organisation: 'rahimeT', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'snyk-api', targetFile: 'package.json'
             }
             // Güvenlik taraması yap
         }
