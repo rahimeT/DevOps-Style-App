@@ -8,16 +8,6 @@ pipeline {
             }
             // SCM'den kodu çek
         }
-   
-        stage('Download and Install Node.js and npm') {
-            steps {
-                sh '''
-                    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-                    sudo apt-get install -y nodejs
-                '''
-            }
-            // Node.js ve npm'i indir ve kur
-        }
         
         stage('NPM Install') {
             steps {
