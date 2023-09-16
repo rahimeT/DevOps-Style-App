@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 // get the client
-const mysql = require
+const mysql = require('mysql2');
 
 // create the connection to database
 const connection = mysql.createConnection({
@@ -30,8 +30,6 @@ const connection = mysql.createConnection({
 
 // Define a route to retrieve all users
 app.get('/all', (req, res) => {
-  // Select all users from the MySQL database
-  const query = 'SELECT * FROM users';
   connection.query('SELECT * FROM `user`', function (err, results, fields) {
     console.log(results); // results contains rows returned by server
     res.status(200).json(results);
