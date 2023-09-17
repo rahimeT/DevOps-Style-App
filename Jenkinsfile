@@ -44,7 +44,7 @@ pipeline {
                         orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
                         snykToken: credentials('synk-api')
                     )
-                
+                }
             steps {
                 // MySQL Docker görüntüsünü Snyk ile tarayın
                 script {
