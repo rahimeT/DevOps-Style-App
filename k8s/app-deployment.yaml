@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: rahimeturkmennn/app-image:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MYSQL_HOST
+              value: mysql-service
+            - name: MYSQL_PORT
+              value: '3306'
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: app
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer # veya NodePort veya ClusterIP, ihtiyacınıza göre

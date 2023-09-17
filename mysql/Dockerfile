@@ -1,5 +1,5 @@
 # Resmi MySQL imajını kullanın
-FROM mysql:5.7
+FROM mysql:latest
 
 # MySQL root kullanıcı parolasını ayarlayın (Güvenlik nedeniyle güçlü bir parola kullanmalısınız)
 ENV MYSQL_ROOT_PASSWORD=Admin123!

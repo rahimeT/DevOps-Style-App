@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'test',
-  password: 'Admin123!',
+  password: 'my-secret-password',
 });
 
 // Define a route to retrieve all users
@@ -43,13 +43,14 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
   res.sendStatus(200);
 });
-
-app.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`);
-});
-
 app.post('/add', (req, res) => {
-  const { name, surname, email, password } = req.body; // req.query yerine req.body kullanıldı
+  console.log('req', req);
+  const { name, surname, email, password } = req.query; // req.query yerine req.body kullanıldı
+
+  console.log('name', name);
+  console.log('surname', surname);
+  console.log('email', email);
+  console.log('password', password);
 
   connection.query(
     'INSERT INTO user (name, surname, email, password) VALUES (?,?,?,?)',
@@ -66,4 +67,7 @@ app.post('/add', (req, res) => {
       res.sendStatus(200);
     }
   );
+});
+app.listen(port, () => {
+  console.log(`app listening at http://localhost:${port}`);
 });
