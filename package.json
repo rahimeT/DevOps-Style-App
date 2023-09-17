@@ -13,6 +13,7 @@
     "express": "^4.18.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.0",
+    "selenium-webdriver": "^4.12.0",
     "sonarqube": "^0.0.1"
   }
 }

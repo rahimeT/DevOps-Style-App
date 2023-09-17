@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'test',
-  password: 'my-secret-password',
+  password: 'Admin123!',
 });
 
 // Define a route to retrieve all users
