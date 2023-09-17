@@ -10,6 +10,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'npm install' // Selenium ve diğer bağımlılıkları yükleyin
+                sh 'npm install selenium-webdriver'
                 sh 'node selenium.js' // Selenium testini çalıştırın
             }
         }

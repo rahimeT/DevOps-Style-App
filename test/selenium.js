@@ -1,9 +1,17 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
+const chrome = require('selenium-webdriver/chrome');
+
+const options = new chrome.Options();
+options.addArguments('headless'); // Eğer başsız (headless) bir tarayıcı kullanmak isterseniz
+
+const driver = new Builder()
+  .forBrowser('chrome')
+  .setChromeOptions(options)
+  .build();
 
 (async function example() {
-  let driver = await new Builder().forBrowser('chrome').build();
   try {
-    await driver.get('http://localhost:4000'); // Uygulamanızın URL'sini buraya ekleyin
+    await driver.get('http://34.132.177.124:5000'); // Uygulamanızın URL'sini buraya ekleyin
 
     // Örnek bir test senaryosu
     await driver.findElement(By.linkText('Login')).click();
