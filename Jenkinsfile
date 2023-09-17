@@ -12,6 +12,7 @@ pipeline {
         stage('NPM Install') {
             steps {
                 sh 'npm install'
+                sh 'npm install selenium-webdriver'
             }
             // NPM bağımlılıklarını yükle
         }
@@ -30,9 +31,7 @@ pipeline {
         }
          stage('Test') {
             steps {
-                sh 'npm -i' // Selenium ve diğer bağımlılıkları yükleyin
                 sh 'npm start'
-                sh 'npm install selenium-webdriver'
                 sh 'node selenium.js' // Selenium testini çalıştırın
             }
         }
