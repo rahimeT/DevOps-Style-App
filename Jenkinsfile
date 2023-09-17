@@ -28,35 +28,25 @@ pipeline {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
                     docker.build('mysql-database:latest', '-f /mysql/Dockerfile')
-                }
-            }
-             steps {
-                script {
+            
                     // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
                     docker.build('app:latest', '-f Dockerfile')
-                }
-            }
-            steps {
-                // MySQL Docker görüntüsünü Snyk ile tarayın
-                script {
+                
+            
                     snykDockerScan(
                         targetImage: 'mysql-database:latest',
                         orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
                         snykToken: credentials('synk-api')
                     )
-                }
             }
-            steps {
-                // MySQL Docker görüntüsünü Snyk ile tarayın
-                script {
                     snykDockerScan(
                         targetImage: 'app:latest',
                         orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
                         snykToken: credentials('synk-api')
                     )
         }
-            }
-        }
+          }
+        
             
          stage('Test') {
             steps {
