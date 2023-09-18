@@ -19,7 +19,6 @@ async function runTest() {
   // Kullanıcı listesini kontrol et
   const userList = await driver.findElement(By.id('userList'));
   const users = await userList.findElements(By.tagName('li'));
-  const userCount = users.length;
   console.log('Kullanıcı ekleme başarılı -- TEST BAŞARILII');
   // Tarayıcıyı kapat
   await driver.quit();
