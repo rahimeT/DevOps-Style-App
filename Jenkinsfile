@@ -38,7 +38,7 @@ pipeline {
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
                    
-                    withDockerRegistry(credentialsId: 'dockerhub') {
+                    withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
                         dockerImage.push()
                         dockerImage2.push()
                     }
