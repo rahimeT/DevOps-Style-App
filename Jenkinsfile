@@ -35,7 +35,6 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
                     withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
