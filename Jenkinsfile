@@ -47,12 +47,11 @@ pipeline {
                 script {
                     
                     sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" '
-                    sh 'gcloud components install gke-gcloud-auth-plugin'
+                   
                     sh "gcloud auth activate-service-account --key-file=jenkins-sa.json"
                     sh "gcloud container clusters get-credentials kubernetes --region us-central1 --project kubernetes-395008"
+                    sh 'sed -i "s/latest/${BUILD_NUMBER}/g" ./k8s/app-deployment.yaml'
                     
-                    sh "kubectl apply -f ./k8s/app-deployment.yaml "
-                    sh "kubectl apply -f ./k8s/mysql-deployment.yaml "
                 }
             }
         }
