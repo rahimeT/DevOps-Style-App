@@ -49,13 +49,13 @@ pipeline {
                     
         }
           }
-          stage('Deploy to GKE') {
+          stage('Deploy to test cluster') {
             steps {
                 // GKE kümesine dağıtım yapın
                 script {
-                    sh "gcloud auth activate-service-account --key-file=$GOOGLE_CREDENTIALS"
-                    sh "gcloud container clusters get-credentials $GKE_CLUSTER --zone your-gke-zone --project your-gcp-project-id"
-                    sh "kubectl config set-context your-gke-cluster-name --namespace=$KUBE_NAMESPACE"
+                    sh "gcloud auth activate-service-account --key-file= jenkins-sa.json"
+                    sh "gcloud container clusters get-credentials kubernetes --zone us-central1-a --project kubernetes-395008"
+                    
                     sh "kubectl apply -f ./k8s/app-deployment.yaml "
                     sh "kubectl apply -f ./k8s/mysql-deployment.yaml "
                 }
@@ -66,6 +66,11 @@ pipeline {
             steps {
                 sh 'npm start'
                 sh 'node selenium.js' // Selenium testini çalıştırın
+            }
+        }
+        stage('Deploy to prod cluster') {
+            steps {
+                
             }
         }
         
