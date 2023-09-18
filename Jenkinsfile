@@ -36,12 +36,12 @@ pipeline {
                     snykDockerScan(
                         targetImage: 'mysql-database:latest',
                         orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
-                        snykToken: credentials('synk-api')
+                        snykToken: credentials('snyk-api-token')
                     )
                     snykDockerScan(
                         targetImage: 'app:latest',
                         orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
-                        snykToken: credentials('synk-api')
+                        snykToken: credentials('snyk-api-token')
                     )
             }
                     
