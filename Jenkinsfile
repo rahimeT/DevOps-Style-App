@@ -34,14 +34,14 @@ pipeline {
         stage('Image Scan') {
              steps {
                 script {
-                    // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
-                    def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
-                   
-                    withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
-                        dockerImage.push()
-                        dockerImage2.push()
+               
+                    withDockerRegistry(credentialsId: 'dockerhub') {
+                        sh 'docker build -t rahimeturkmennn/app:latest -f Dockerfile . '
+                        sh 'docker build -t rahimeturkmennn/mysql-database:latest -f ./mysql/Dockerfile . '
+                        sh 'docker push rahimeturkmennn/app:latest'
+                        sh 'docker push rahimeturkmennn/mysql-database:latest'
                     }
+
                   
                     sh "grype  mysql-database:latest"
                     sh "grype  app:latest"
