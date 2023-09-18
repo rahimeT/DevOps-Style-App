@@ -1,13 +1,5 @@
 pipeline {
     agent any
-    environment {
-        // GKE kimlik bilgilerini (hizmet hesabı anahtarı) burada tanımlayın
-        GOOGLE_CREDENTIALS = credentials('ff3c5882ab9c61db0aa0d66bd999b41e764c5f29')
-        // GKE küme adını burada tanımlayın
-        GKE_CLUSTER = 'kubernetes'
-        // Kubernetes namespace adını burada tanımlayın
-        KUBE_NAMESPACE = 'default'
-    }
     
     stages {
         stage('SCM Checkout') {
