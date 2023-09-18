@@ -4,7 +4,7 @@ pipeline {
         GOOGLE_CREDENTIALS = credentials('gke')
         GKE_CLUSTER = 'kubernetes'
         KUBE_NAMESPACE = 'default'
-        DOCKERHUB_CREDENTIALS = credentials('docker-push')
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
         DOCKERHUB_CREDENTIALS_USR='rahimeturkmennn'
         DOCKERHUB_CREDENTIALS_PSW='Aauth1234'
     }
