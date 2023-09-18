@@ -31,18 +31,8 @@ pipeline {
             
                     // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
                     docker.build('app:latest', '-f Dockerfile .')
-                
-            
-                    snykDockerScan(
-                        targetImage: 'mysql-database:latest',
-                        orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
-                        snykToken: credentials('snyk-api-token')
-                    )
-                    snykDockerScan(
-                        targetImage: 'app:latest',
-                        orgId: '10763819-2628-4c1d-8b13-ca64db1f5426',
-                        snykToken: credentials('snyk-api-token')
-                    )
+                    sh "grype --no-progress mysql-database:latest"
+                    sh "grype --no-progress app:latest"
             }
                     
         }
