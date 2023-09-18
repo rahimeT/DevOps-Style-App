@@ -7,6 +7,9 @@ pipeline {
         GKE_CLUSTER = 'kubernetes'
         // Kubernetes namespace adını burada tanımlayın
         KUBE_NAMESPACE = 'default'
+        DOCKERHUB_CREDENTIALS = credentials('docker-push')
+        DOCKERHUB_CREDENTIALS_USR='rahimeturkmennn'
+        DOCKERHUB_CREDENTIALS_PSW='Aauth1234'
     }
     
     stages {
@@ -35,12 +38,13 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
-                    docker.withRegistry('https://hub.docker.com/', 'docker-push') {
+                    docker.withRegistry('https://hub.docker.com/', '$DOCKERHUB_CREDENTIALS') {
                         dockerImage.push()
                     }
-                    docker.withRegistry('https://hub.docker.com/', 'docker-push') {
+                    docker.withRegistry('https://hub.docker.com/', '$DOCKERHUB_CREDENTIALS') {
                         dockerImage2.push()
                     }
                     sh "grype  mysql-database:latest"
