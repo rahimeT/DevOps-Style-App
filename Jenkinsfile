@@ -20,6 +20,7 @@ pipeline {
         stage('Code Scan') {
             steps {
                 snykSecurity organisation: 'rahimet', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'synk-api', targetFile: 'package.json'
+                snykSecurity organisation: 'rahimet', projectName: 'DevOps-Style-App', severity: 'medium', snykInstallation: 'Snyk', snykTokenId: 'synk-api', targetFile: 'Code Analysis'
             }
             // Güvenlik taraması yap
         }
@@ -27,8 +28,6 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    sh 'echo Admin | sudo -S su'
-                    sh 'sudo chmod 666 /var/run/docker.sock'
                     docker.build('mysql-database:latest', '-f /mysql/Dockerfile .') 
             
                     // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
