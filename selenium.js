@@ -5,7 +5,7 @@ async function runTest() {
   const driver = new Builder().forBrowser('chrome').build();
 
   // Sayfayı aç
-  await driver.get('http://localhost:4000');
+  await driver.get('http://34.123.60.187:4000');
 
   // Formu doldur
   await driver.findElement(By.id('name')).sendKeys('rahime');
