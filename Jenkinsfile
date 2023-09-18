@@ -46,7 +46,7 @@ pipeline {
                 // GKE kümesine dağıtım yapın
                 script {
                     sh "gcloud auth activate-service-account --key-file=jenkins-sa.json"
-                    sh "gcloud container clusters get-credentials kubernetes --zone us-central1-a --project kubernetes-395008"
+                    sh "gcloud container clusters get-credentials kubernetes --region us-central1 --project kubernetes-395008"
                     
                     sh "kubectl apply -f ./k8s/app-deployment.yaml "
                     sh "kubectl apply -f ./k8s/mysql-deployment.yaml "
