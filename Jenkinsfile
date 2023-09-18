@@ -31,8 +31,8 @@ pipeline {
             
                     // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
                     docker.build('app:latest', '-f Dockerfile .')
-                    sh "grype --no-progress mysql-database:latest"
-                    sh "grype --no-progress app:latest"
+                    sh "grype  mysql-database:latest"
+                    sh "grype  app:latest"
             }
                     
         }
