@@ -36,10 +36,10 @@ pipeline {
                 script {
                
                     withDockerRegistry(credentialsId: 'dockerhub') {
-                        sh 'docker build -t rahimeturkmennn/app:latest -f Dockerfile . '
-                        sh 'docker build -t rahimeturkmennn/mysql-database:latest -f ./mysql/Dockerfile . '
-                        sh 'docker push rahimeturkmennn/app:latest'
-                        sh 'docker push rahimeturkmennn/mysql-database:latest'
+                        sh 'docker build -t rahimeturkmennn/app:${BUILD_ID} -f Dockerfile . '
+                        sh 'docker build -t rahimeturkmennn/mysql-database:${BUILD_ID} -f ./mysql/Dockerfile . '
+                        sh 'docker push rahimeturkmennn/app:${BUILD_ID}'
+                        sh 'docker push rahimeturkmennn/mysql-database:${BUILD_ID}'
                     }
 
                   
