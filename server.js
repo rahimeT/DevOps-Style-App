@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 80;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -69,5 +69,5 @@ app.post('/add', (req, res) => {
   );
 });
 app.listen(port, () => {
-  console.log(`app listening at http://localhost:${port}`);
+  console.log(`app listening at http://34.123.60.187${port}`);
 });
