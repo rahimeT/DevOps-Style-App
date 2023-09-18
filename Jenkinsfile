@@ -1,5 +1,13 @@
 pipeline {
     agent any
+    environment {
+        // GKE kimlik bilgilerini (hizmet hesabı anahtarı) burada tanımlayın
+        GOOGLE_CREDENTIALS = credentials('gke')
+        // GKE küme adını burada tanımlayın
+        GKE_CLUSTER = 'kubernetes'
+        // Kubernetes namespace adını burada tanımlayın
+        KUBE_NAMESPACE = 'default'
+    }
     
     stages {
         stage('SCM Checkout') {
@@ -29,10 +37,10 @@ pipeline {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
-                    docker.withRegistry('https://hub.docker.com/', 'dckr_pat_BtAsQVjSsn3cTOzyxpHo11HrC-Y') {
+                    docker.withRegistry('https://hub.docker.com/', 'docker-push') {
                         dockerImage.push()
                     }
-                    docker.withRegistry('https://hub.docker.com/', 'dckr_pat_BtAsQVjSsn3cTOzyxpHo11HrC-Y') {
+                    docker.withRegistry('https://hub.docker.com/', 'docker-push') {
                         dockerImage2.push()
                     }
                     sh "grype  mysql-database:latest"
