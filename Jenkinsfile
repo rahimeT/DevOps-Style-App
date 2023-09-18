@@ -40,7 +40,7 @@ pipeline {
                     withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
                         dockerImage.push()
                     }
-                   withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com'){
+                   withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
                         dockerImage2.push()
                     }
                     sh "grype  mysql-database:latest"
