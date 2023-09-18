@@ -38,10 +38,10 @@ pipeline {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
-                    docker.withRegistry('https://hub.docker.com/', '$DOCKERHUB_CREDENTIALS') {
+                    withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
                         dockerImage.push()
                     }
-                    docker.withRegistry('https://hub.docker.com/', '$DOCKERHUB_CREDENTIALS') {
+                   withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com'){
                         dockerImage2.push()
                     }
                     sh "grype  mysql-database:latest"
