@@ -1,14 +1,6 @@
 pipeline {
     agent any
-    environment {
-        GOOGLE_CREDENTIALS = credentials('gke')
-        GKE_CLUSTER = 'kubernetes'
-        KUBE_NAMESPACE = 'default'
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-        DOCKERHUB_CREDENTIALS_USR='rahimeturkmennn'
-        DOCKERHUB_CREDENTIALS_PSW='Aauth1234'
-    }
-    
+  
     stages {
         stage('SCM Checkout') {
             steps {
@@ -70,7 +62,7 @@ pipeline {
         }
         stage('Deploy to prod cluster') {
             steps {
-                
+                sh 'echo başarılı'
             }
         }
         
