@@ -35,16 +35,14 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    sh "docker login -u rahimeturkmennn -p Aauth1234 "
                     def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
                     def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
-                    
-                    withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
+                   
+                    withDockerRegistry(credentialsId: 'dockerhub') {
                         dockerImage.push()
-                    }
-                   withDockerRegistry(credentialsId: 'dockerhub', url: 'https://hub.docker.com') {
                         dockerImage2.push()
                     }
+                  
                     sh "grype  mysql-database:latest"
                     sh "grype  app:latest"
             }
