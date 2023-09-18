@@ -1,5 +1,13 @@
 pipeline {
     agent any
+    environment {
+        // GKE kimlik bilgilerini (hizmet hesabı anahtarı) burada tanımlayın
+        GOOGLE_CREDENTIALS = credentials('ff3c5882ab9c61db0aa0d66bd999b41e764c5f29')
+        // GKE küme adını burada tanımlayın
+        GKE_CLUSTER = 'kubernetes'
+        // Kubernetes namespace adını burada tanımlayın
+        KUBE_NAMESPACE = 'default'
+    }
     
     stages {
         stage('SCM Checkout') {
@@ -27,18 +35,33 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
-            
-                    // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
-                    docker.build('app:latest', '-f Dockerfile .')
+                    def dockerImage = docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
+                    def dockerImage2 = docker.build('app:latest', '-f Dockerfile .')
+                    docker.withRegistry('https://hub.docker.com/', 'dckr_pat_BtAsQVjSsn3cTOzyxpHo11HrC-Y') {
+                        dockerImage.push()
+                    }
+                    docker.withRegistry('https://hub.docker.com/', 'dckr_pat_BtAsQVjSsn3cTOzyxpHo11HrC-Y') {
+                        dockerImage2.push()
+                    }
                     sh "grype  mysql-database:latest"
                     sh "grype  app:latest"
             }
                     
         }
           }
-        
-            
+          stage('Deploy to GKE') {
+            steps {
+                // GKE kümesine dağıtım yapın
+                script {
+                    sh "gcloud auth activate-service-account --key-file=$GOOGLE_CREDENTIALS"
+                    sh "gcloud container clusters get-credentials $GKE_CLUSTER --zone your-gke-zone --project your-gcp-project-id"
+                    sh "kubectl config set-context your-gke-cluster-name --namespace=$KUBE_NAMESPACE"
+                    sh "kubectl apply -f ./k8s/app-deployment.yaml "
+                    sh "kubectl apply -f ./k8s/mysql-deployment.yaml "
+                }
+            }
+        }
+    
          stage('Test') {
             steps {
                 sh 'npm start'

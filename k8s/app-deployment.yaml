@@ -24,7 +24,7 @@ spec:
               value: '3306'
             - name: MYSQL_USER
               value: root
-            - name: MYSQL_PASSWORD
+            - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
