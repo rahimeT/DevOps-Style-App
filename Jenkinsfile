@@ -27,7 +27,7 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    docker.build('mysql-database:latest', '-f /mysql/Dockerfile .') 
+                    docker.build('mysql-database:latest', '-f ./mysql/Dockerfile .') 
             
                     // Node.js uygulamasının Dockerfile'ını kullanarak uygulama görüntüsünü oluştur
                     docker.build('app:latest', '-f Dockerfile .')
