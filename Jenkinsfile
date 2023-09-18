@@ -27,7 +27,7 @@ pipeline {
              steps {
                 script {
                     // MySQL Dockerfile'ını kullanarak MySQL görüntüsünü oluştur
-                    sh 'echo admin | sudo -S su'
+                    sh 'echo Admin | sudo -S su'
                     sh 'sudo chmod 666 /var/run/docker.sock'
                     docker.build('mysql-database:latest', '-f /mysql/Dockerfile .') 
             
