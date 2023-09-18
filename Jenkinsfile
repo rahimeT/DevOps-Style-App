@@ -1,11 +1,8 @@
 pipeline {
     agent any
     environment {
-        // GKE kimlik bilgilerini (hizmet hesabı anahtarı) burada tanımlayın
         GOOGLE_CREDENTIALS = credentials('gke')
-        // GKE küme adını burada tanımlayın
         GKE_CLUSTER = 'kubernetes'
-        // Kubernetes namespace adını burada tanımlayın
         KUBE_NAMESPACE = 'default'
         DOCKERHUB_CREDENTIALS = credentials('docker-push')
         DOCKERHUB_CREDENTIALS_USR='rahimeturkmennn'
