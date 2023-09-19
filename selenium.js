@@ -5,7 +5,7 @@ async function runTest() {
   const driver = new Builder().forBrowser('chrome').build();
 
   // Sayfayı aç
-  await driver.get('http://app-service:3000');
+  await driver.get('http://app-service.default.svc.cluster.local:3000');
 
   // Formu doldur
   await driver.findElement(By.id('name')).sendKeys('rahime');

@@ -22,7 +22,7 @@ const mysql = require('mysql2');
 
 // create the connection to database
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'mysql-service.default.svc.cluster.local',
   user: 'root',
   database: 'test',
   password: 'Admin123!',
@@ -70,6 +70,6 @@ app.post('/add', (req, res) => {
 });
 app.listen(port, () => {
   console.log(
-    `app listening at http://app-service.default.svc.cluster.local${port}`
+    `app listening at http://app-service.default.svc.cluster.local:${port}`
   );
 });
