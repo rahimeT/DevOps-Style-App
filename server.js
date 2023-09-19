@@ -69,5 +69,7 @@ app.post('/add', (req, res) => {
   );
 });
 app.listen(port, () => {
-  console.log(`app listening at http://app-service${port}`);
+  console.log(
+    `app listening at http://app-service.default.svc.cluster.local${port}`
+  );
 });
