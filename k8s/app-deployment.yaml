@@ -40,4 +40,4 @@ spec:
   ports:
     - port: 80
       targetPort: 3000
-  type: LoadBalancer # veya NodePort veya ClusterIP, ihtiyacınıza göre
+  type: LoadBalancer 
