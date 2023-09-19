@@ -4,7 +4,7 @@ metadata:
   name: mysql-secret
 type: Opaque
 data:
-  MYSQL_ROOT_PASSWORD: QWRtaW4xMjMh
+  password: QWRtaW4xMjMh
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -22,13 +22,13 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:latest
+          image: rahimeturkmennn/mysql-database:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
-                  key: MYSQL_ROOT_PASSWORD
+                  key: password
           ports:
             - containerPort: 3306
 ---

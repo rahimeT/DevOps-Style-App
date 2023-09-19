@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000;
-
+const port = process.env.PORT || 4000;
+const password = process.env.mysql - secret;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -25,7 +25,7 @@ const connection = mysql.createConnection({
   host: 'mysql-service.default.svc.cluster.local',
   user: 'root',
   database: 'test',
-  password: 'Admin123!',
+  password: password,
 });
 
 // Define a route to retrieve all users

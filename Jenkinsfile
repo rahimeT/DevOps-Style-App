@@ -51,6 +51,7 @@ pipeline {
                     sh "gcloud auth activate-service-account --key-file=jenkins-sa.json"
                     sh "gcloud container clusters get-credentials cluster-1 --zone us-central1-a --project kubernetes-395008"
                     sh 'sed -i "s/latest/${BUILD_NUMBER}/g" ./k8s/app-deployment.yaml'
+                    sh 'sed -i "s/latest/${BUILD_NUMBER}/g" ./k8s/mysql-deployment.yaml'
                     sh 'kubectl apply -f ./k8s/app-deployment.yaml'
                     sh 'kubectl apply -f ./k8s/mysql-deployment.yaml'
                     
