@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: rahimeturkmennn/app-image:latest
+          image: rahimeturkmennn/app:latest
           ports:
             - containerPort: 3000
           env:
