@@ -11,7 +11,6 @@ pipeline {
         
         stage('NPM Install') {
             steps {
-                sh 'npm install'
                 sh 'npm install selenium-webdriver'
             }
             // NPM bağımlılıklarını yükle
